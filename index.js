@@ -9,7 +9,35 @@ const CONFIG = {
   gravityY: -0.05,
   velocity: 0.8,
   HUE: 250,
-  dieSpeed: 0.03
+  dieSpeed: 0.03,
+}
+
+let json = {
+  "preset": "Default",
+  "closed": false,
+  "remembered": {
+    "Default": {
+      "0": {
+        particleCount: 10,
+        gravityX: 0,
+        gravityY: -0.05,
+        velocity: 0.8,
+        HUE: 250,
+        dieSpeed: 0.03
+      }
+    },
+    "Fire": {
+      "0": {
+        particleCount: 10,
+        gravityX: 0,
+        gravityY: 0.055,
+        velocity: 0.8,
+        HUE: 40,
+        dieSpeed: 0.03
+      }
+    },
+  },
+  "folders": {}
 }
 
 window.onload = function () {
@@ -18,14 +46,23 @@ window.onload = function () {
   const WIDTH = canvas.width = window.innerWidth;
   const HEIGHT = canvas.height = window.innerHeight;
 
-  let gui = new dat.GUI();
+  CONFIG.saveImage = function() {
+    var link = document.createElement('a');
+    link.setAttribute('download', 'ParticleBrush_art.png');
+    link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
+    link.click();
+  }
+
+  let gui = new dat.GUI({ load: json });
+  gui.remember(CONFIG);
   gui.add(CONFIG, 'particleCount', 0, 100, 0.01).name("Particle Count");;
   gui.add(CONFIG, 'velocity', -2, 2, 0.01).name("Velocity");
-  gui.add(CONFIG, 'gravityX', -2, 2, 0.01);
-  gui.add(CONFIG, 'gravityY', -2, 2, 0.01);
+  gui.add(CONFIG, 'gravityX', -1, 1, 0.001);
+  gui.add(CONFIG, 'gravityY', -1, 1, 0.001);
   gui.add(CONFIG, 'HUE', 0, 360, 1);
   gui.add(CONFIG, 'dieSpeed', 0, 0.5, 0.001).name("Die Speed");
-  
+  gui.add(CONFIG, 'saveImage').name("Save Artwork");
+
   let particles = [];
 
   let mouse = { x: 0, y: 0 }
@@ -33,7 +70,7 @@ window.onload = function () {
     mouse.x = e.offsetX;
     mouse.y = e.offsetY;
   });
-  
+
   let MOUSE_DOWN = false;
   canvas.addEventListener('mousedown', function (e) {
     MOUSE_DOWN = true;
@@ -72,4 +109,7 @@ window.onload = function () {
     requestAnimationFrame(animate);
   }
   animate();
+
+
+
 }
