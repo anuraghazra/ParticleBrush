@@ -70,12 +70,22 @@ window.onload = function () {
     mouse.x = e.offsetX;
     mouse.y = e.offsetY;
   });
+  canvas.addEventListener('touchmove', function (e) {
+    mouse.x = e.touches[0].clientX;
+    mouse.y = e.touches[0].clientY;
+  });
 
   let MOUSE_DOWN = false;
   canvas.addEventListener('mousedown', function (e) {
     MOUSE_DOWN = true;
   })
   canvas.addEventListener('mouseup', function (e) {
+    MOUSE_DOWN = false;
+  })
+  canvas.addEventListener('touchstart', function (e) {
+    MOUSE_DOWN = true;
+  })
+  canvas.addEventListener('touchend', function (e) {
     MOUSE_DOWN = false;
   })
 
