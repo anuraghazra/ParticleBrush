@@ -7,9 +7,9 @@ const CONFIG = {
   particleCount: 10,
   gravityX: 0,
   gravityY: -0.05,
-  velocity: 0.8,
+  velocity: 0.6,
   HUE: 250,
-  dieSpeed: 0.03,
+  dieSpeed: 0.04,
 }
 
 let json = {
@@ -21,9 +21,9 @@ let json = {
         particleCount: 10,
         gravityX: 0,
         gravityY: -0.05,
-        velocity: 0.8,
+        velocity: 0.7,
         HUE: 250,
-        dieSpeed: 0.03
+        dieSpeed: 0.04,
       }
     },
     "Fire": {
@@ -33,7 +33,6 @@ let json = {
         gravityY: 0.055,
         velocity: 0.8,
         HUE: 40,
-        dieSpeed: 0.03
       }
     },
   },
@@ -46,7 +45,7 @@ window.onload = function () {
   const WIDTH = canvas.width = window.innerWidth;
   const HEIGHT = canvas.height = window.innerHeight;
 
-  CONFIG.saveImage = function() {
+  CONFIG.saveImage = function () {
     var link = document.createElement('a');
     link.setAttribute('download', 'ParticleBrush_art.png');
     link.setAttribute('href', canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
@@ -56,11 +55,11 @@ window.onload = function () {
   let gui = new dat.GUI({ load: json });
   gui.remember(CONFIG);
   gui.add(CONFIG, 'particleCount', 0, 100, 0.01).name("Particle Count");;
-  gui.add(CONFIG, 'velocity', -2, 2, 0.01).name("Velocity");
+  gui.add(CONFIG, 'velocity', -1, 1, 0.01).name("Velocity");
   gui.add(CONFIG, 'gravityX', -1, 1, 0.001);
   gui.add(CONFIG, 'gravityY', -1, 1, 0.001);
   gui.add(CONFIG, 'HUE', 0, 360, 1);
-  gui.add(CONFIG, 'dieSpeed', 0, 0.5, 0.001).name("Die Speed");
+  gui.add(CONFIG, 'dieSpeed', 0, 0.1, 0.001).name("Die Speed");
   gui.add(CONFIG, 'saveImage').name("Save Artwork");
 
   let particles = [];
