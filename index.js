@@ -94,7 +94,11 @@ window.onload = function () {
 
     ctx.save();
     ctx.globalCompositeOperation = 'destination-atop'
-    ctx.fillStyle = 'rgba(10, 10, 10, 1)';
+    let grd = ctx.createRadialGradient(WIDTH / 2, HEIGHT / 2, 0, WIDTH / 2, HEIGHT / 2, WIDTH);
+    grd.addColorStop(0, "rgba(20, 20, 20, 1)");
+    grd.addColorStop(1, "rgba(0, 0, 30, 1)");
+    // Fill with gradient
+    ctx.fillStyle = grd;
     ctx.fillRect(0, 0, WIDTH, HEIGHT);
     ctx.restore();
 
